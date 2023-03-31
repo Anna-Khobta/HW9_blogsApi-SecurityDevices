@@ -52,7 +52,7 @@ authRouter
         }
 
                 res
-                    .cookie('refreshToken', jwtResult.refreshToken, { httpOnly: true,  sameSite: "none"}) // secure: 'true' }) //
+                    .cookie('refreshToken', jwtResult.refreshToken, { httpOnly: true,   secure: 'true' }) // sameSite: "none"}) // secure: 'true' }) //
                     .json({"accessToken": jwtResult.accessToken})
                     .status(200)
 
@@ -138,7 +138,7 @@ authRouter
 
         res
             .status(200)
-            .cookie('refreshToken', createNewTokens.refreshToken, { httpOnly: true, sameSite: "none"}) // secure: 'true' })
+            .cookie('refreshToken', createNewTokens.refreshToken, { httpOnly: true,  secure: 'true' }) // secure: 'true' }) sameSite: "none"})
             .json({"accessToken": createNewTokens.accessToken})
 })
 
