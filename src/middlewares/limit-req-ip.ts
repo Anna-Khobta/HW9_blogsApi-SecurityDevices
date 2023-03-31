@@ -22,7 +22,7 @@ export const limitIpMiddleware = async (req: Request, res:Response, next:NextFun
 
     const foundMatchesIp = await ipDbRepositories.findLast10sIp(receivedIp)
 
-    if (foundMatchesIp.length >= 5) {
+    if (foundMatchesIp.length > 5) {
         return res.sendStatus(429)
     } else {
             next()

@@ -82,6 +82,7 @@ authRouter
     passwordValidation,
     emailValidation,
     inputValidationMiddleware,
+        limitIpMiddleware,
 
     async (req:Request, res: Response) => {
 
