@@ -97,6 +97,7 @@ authRouter
     .post("/registration-confirmation",
         checkCodeInDb,
         inputValidationMiddleware,
+        limitIpMiddleware,
         async (req:Request, res: Response) => {
         const result = await authService.confirmEmail(req.body.code)
             if (result) {
@@ -111,6 +112,7 @@ authRouter
     emailValidationSimple,
     checkUserEmailInbase,
     inputValidationMiddleware,
+    limitIpMiddleware,
     async (req:Request, res: Response) => {
 
         const result = await authService.checkEmail(req.body.email)
