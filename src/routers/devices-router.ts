@@ -7,7 +7,7 @@ import {devicesService} from "../domain/devices-service";
 export const devicesRouter = Router({})
 
 devicesRouter
-    .get("/",
+    .get("/devices/",
         refreshTokenMiddleware,
         async (req:Request, res: Response) => {
 
@@ -19,7 +19,7 @@ devicesRouter
 
     })
 
-.delete('/:id',
+.delete('/devices/:deviceId',
     refreshTokenMiddleware,
     async (req: Request, res: Response) => {
 
@@ -29,27 +29,25 @@ devicesRouter
 
     const foundUserByDeviceId = await tokenRepositories.findUserByDeviceId(req.params.id)
 
-        console.log(foundUserByDeviceId)
-
         if (!foundUserByDeviceId) {
             return res.sendStatus(404) // not found
         }
 
-        if (!(foundUserByDeviceId === refreshToken.userId)) {
+        if (!(foundUserByDeviceId == refreshToken.userId)) {
            return res.status(403).send("try to delete the deviceId of other user")
         }
 
     const isDeleted = await devicesService.deleteDevice(req.params.id)
 
         if (!isDeleted) {
-            return res.status(404).send("Something wrong with db")
+            return res.sendStatus(404)
         } else {
             return res.sendStatus(204)
         }
 })
 
     // Terminate all other (exclude current) device's sessions
-.delete("/",
+.delete("/devices",
     refreshTokenMiddleware,
     async (req: Request, res: Response) => {
 

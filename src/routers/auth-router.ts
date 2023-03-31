@@ -78,11 +78,11 @@ authRouter
 // Registration in the system. Email with confirmation code will be send to passed email address
 
     .post("/registration",
+        limitIpMiddleware,
     loginValidation,
     passwordValidation,
     emailValidation,
     inputValidationMiddleware,
-        limitIpMiddleware,
 
     async (req:Request, res: Response) => {
 
