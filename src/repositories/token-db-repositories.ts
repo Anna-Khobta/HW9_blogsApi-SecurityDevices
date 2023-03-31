@@ -51,17 +51,19 @@ export const tokenRepositories = {
 
    },
 
-    async findUserByDeviceId (id: string): Promise< string | null > {
+    async findUserByDeviceId (deviceId: string): Promise< string | null > {
 
         const foundTokenInDb =  await tokensCollection.findOne(
-            {deviceId: id}, {projection: {_id: 0}})
+            {deviceId: deviceId}, {projection: {_id: 0}})
 
-        if (!foundTokenInDb) {
-            return null
-        } else {
+        if (foundTokenInDb) {
             return foundTokenInDb.userId
+        } else {
+            return null
         }
     },
+
+
 
     async updateToken (decodedRefreshToken: any, ip:string): Promise<boolean> {
 
@@ -72,6 +74,20 @@ export const tokenRepositories = {
         return result.matchedCount === 1
 
         },
+
+
+    async updateTokenIatExpIp (refreshToken: TokenDBType): Promise<boolean> {
+
+        const result = await tokensCollection.updateOne(
+            {userId: refreshToken.userId,
+                deviceId: refreshToken.deviceId,
+                deviceTitle: refreshToken.deviceTitle},
+            {$set: {iat: refreshToken.iat,
+                    exp: refreshToken.exp,
+                    ip: refreshToken.ip}})
+        return result.matchedCount === 1
+
+    },
 
     async deleteToken (foundTokenInDb: TokenDBType): Promise <boolean> {
 

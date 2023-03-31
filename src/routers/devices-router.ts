@@ -27,17 +27,21 @@ devicesRouter
 
         //console.log(refreshToken)
 
-    const foundUserByDeviceId = await tokenRepositories.findUserByDeviceId(req.params.id)
+    const foundUserByDeviceId = await tokenRepositories.findUserByDeviceId(req.params.deviceId)
+
+        console.log(foundUserByDeviceId)
 
         if (!foundUserByDeviceId) {
             return res.sendStatus(404) // not found
         }
 
-        if (!(foundUserByDeviceId == refreshToken.userId)) {
+        if (!(foundUserByDeviceId === refreshToken.userId)) {
            return res.status(403).send("try to delete the deviceId of other user")
         }
 
-    const isDeleted = await devicesService.deleteDevice(req.params.id)
+    const isDeleted = await devicesService.deleteDevice(req.params.deviceId)
+
+        console.log(isDeleted)
 
         if (!isDeleted) {
             return res.sendStatus(404)

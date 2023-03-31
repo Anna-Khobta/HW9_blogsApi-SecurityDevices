@@ -15,9 +15,15 @@ export const tokenService= {
                 userId: decodedRefreshToken.payload.userId
             }
 
-        const addTokenToDb = await tokenRepositories.addToken(newRefTokenDb)
+            const checkDeviceInDb = await tokenRepositories.findUserByDeviceId(newRefTokenDb.deviceId)
 
-        return addTokenToDb
+        if (!checkDeviceInDb) {
+            const addNewTokenToDb = await tokenRepositories.addToken(newRefTokenDb)
+            return addNewTokenToDb
+        } else {
+            const isUpdatedTokenInfoInDb = await tokenRepositories.updateTokenIatExpIp(newRefTokenDb)
+            return isUpdatedTokenInfoInDb
+        }
 
     },
 

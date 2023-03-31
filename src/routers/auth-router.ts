@@ -17,6 +17,7 @@ import {tokenService} from "../domain/token-service";
 import {limitIpMiddleware} from "../middlewares/limit-req-ip";
 import {refreshTokenMiddleware} from "../middlewares/RefreshToken-Middleware";
 
+
 export const authRouter = Router({})
 
 authRouter
@@ -52,7 +53,7 @@ authRouter
         }
 
                 res
-                    .cookie('refreshToken', jwtResult.refreshToken, { httpOnly: true,   secure: true }) // sameSite: "none"}) // secure: 'true' }) //
+                    .cookie('refreshToken', jwtResult.refreshToken, { httpOnly: true, secure: true }) //  sameSite: "none"}) // secure: 'true' }) //
                     .json({"accessToken": jwtResult.accessToken})
                     .status(200)
 
@@ -141,7 +142,7 @@ authRouter
 
         res
             .status(200)
-            .cookie('refreshToken', createNewTokens.refreshToken, { httpOnly: true,  secure: true }) // secure: 'true' }) sameSite: "none"})
+            .cookie('refreshToken', createNewTokens.refreshToken, { httpOnly: true,  secure: true }) // sameSite: "none"})  // secure: 'true' })
             .json({"accessToken": createNewTokens.accessToken})
 })
 

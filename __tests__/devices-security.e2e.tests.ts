@@ -86,6 +86,43 @@ describe('/', () => {
 
             expect(getAllUserDevices.body).toEqual(expectedDevices)
 
+        }),
+
+
+        it("\"'DELETE /security/devices/:deviceId: " +
+            " error 404, error 401 '\"", async () => {
+
+            const loginInSystem = await request(app)
+                .post('/auth/login')
+                .send({
+                    "loginOrEmail": "test12",
+                    "password": "test12"
+                })
+                .expect(200)
+
+            const myCookies = loginInSystem.headers['set-cookie'][0]
+
+            const incorrectDeviceId = 123
+
+            const deleteByDeviceId404 = await request(app)
+                .delete("/security/devices/" + incorrectDeviceId)
+                .set('Cookie', myCookies)
+                .expect(404)
+
+            const deleteByDeviceId401 = await request(app)
+                .delete("/security/devices/" + incorrectDeviceId)
+                .expect(401)
+
+        }),
+
+
+        it('GET -> "/security/devices": login user 1 time, then get device list; status 200; content: device list;' +
+            'used additional methods: POST => /auth/login ', async () => {
+
+
+
+
         })
+
 
 })
