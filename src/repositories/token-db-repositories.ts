@@ -11,7 +11,7 @@ export const tokenRepositories = {
         return insertNewTokenToDb.acknowledged
     },
 
-    async findToken(decodedRefreshToken: decodedRefreshTokenType): Promise< TokenDBType | null > {
+    async findToken(decodedRefreshToken: any): Promise< TokenDBType | null > {
 
         const foundTokenInDb =  await tokensCollection.findOne(
             {userId: decodedRefreshToken.payload.userId,
