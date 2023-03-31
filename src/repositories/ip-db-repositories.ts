@@ -23,7 +23,7 @@ export const ipDbRepositories = {
         //const filter: any = {ip: receivedIp.ip, iat: { $gte: limitTime }}
 
         const foundIpInDb  = await ipCollection
-            .find({ip: receivedIp.ip, iat: { $gte: limitTime }},{projection:{_id:0}})
+            .find({ip: receivedIp.ip, endpoint: receivedIp.endpoint, iat: { $gte: limitTime }},{projection:{_id:0}})
             .toArray()
 
         //console.log(foundIpInDb)

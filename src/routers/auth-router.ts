@@ -23,8 +23,8 @@ authRouter
     .post("/login",
     loginOrEmailValidation,
     passwordValidation,
-        limitIpMiddleware,
     inputValidationMiddleware,
+        limitIpMiddleware,
     async (req:Request, res: Response) => {
 
         const ip = req.ip // req.headers['x-forwarded-for'] || req.socket.remoteAddress
