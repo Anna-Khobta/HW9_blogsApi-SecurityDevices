@@ -1,6 +1,6 @@
 
 import {usersRepository} from "../repositories/users-db-repositories";
-import {UserDbType, UserViewWhenAdd} from "../repositories/types";
+import {UserViewWhenAdd} from "../repositories/types";
 import {v4 as uuidv4} from "uuid";
 
 const bcrypt = require('bcryptjs');

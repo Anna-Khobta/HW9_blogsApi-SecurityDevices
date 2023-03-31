@@ -47,9 +47,9 @@ export const blogsQueryRepository = {
             return null
         }
 
-        },
+        }
 
-    async findBlogByName(searchNameTerm: string): Promise<BlogType | null> {
+/*    async findBlogByName(searchNameTerm: string): Promise<BlogType | null> {
 
         let blog: BlogType | null = await blogsCollection.findOne({"title": {$regex : "searchNameTerm"}}, {projection: {_id: 0}})
 
@@ -58,6 +58,6 @@ export const blogsQueryRepository = {
         } else {
             return null
         }
-    },
+    },*/
 
 }
