@@ -26,7 +26,7 @@ export const ipDbRepositories = {
             .find({ip: receivedIp.ip, iat: { $gte: limitTime }},{projection:{_id:0}})
             .toArray()
 
-        console.log(foundIpInDb)
+        //console.log(foundIpInDb)
 
         return foundIpInDb
 

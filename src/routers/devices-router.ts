@@ -25,10 +25,14 @@ devicesRouter
 
     const refreshToken = req.cookies['refreshToken']
 
+        //console.log(refreshToken)
+
     const foundUserByDeviceId = await tokenRepositories.findUserByDeviceId(req.params.id)
 
+        console.log(foundUserByDeviceId)
+
         if (!foundUserByDeviceId) {
-            return res.status(404) // not found
+            return res.sendStatus(404) // not found
         }
 
         if (!(foundUserByDeviceId === refreshToken.userId)) {
@@ -40,7 +44,7 @@ devicesRouter
         if (!isDeleted) {
             return res.status(404).send("Something wrong with db")
         } else {
-            res.sendStatus(204)
+            return res.sendStatus(204)
         }
 })
 

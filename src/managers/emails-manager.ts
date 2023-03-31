@@ -21,13 +21,7 @@ export const emailsManager = {
 
 const confirmationCode = newUser.emailConfirmation.confirmationCode
 
-        const html = `
-    <h1>Thank you for registering</h1>
-    <p>To finish registration, please follow the link below:</p>
-    <p><a href='${confirmationCode}'>Complete registration</a></p>
-`;
-
-        const html2 = `<h1>Thank you for registration!</h1><p>To finish registration process please follow the link below:<a href="https://somesite.com/confirm-email?code=${confirmationCode}">complete registration</a></p>`
+        const html = `<h1>Thank you for registration!</h1><p>To finish registration process please follow the link below:<a href="https://somesite.com/confirm-email?code=${confirmationCode}">complete registration</a></p>`
 
 
 // send mail with defined transport object
@@ -35,7 +29,7 @@ const confirmationCode = newUser.emailConfirmation.confirmationCode
             from: "AnnaTestEmail",  // sender address
             to: newUser.accountData.email, // list of receivers
             subject: "Confirmation Message", // Subject line
-            html: html2 })
+            html: html })
         // html body
 
         return info
@@ -61,16 +55,7 @@ const confirmationCode = newUser.emailConfirmation.confirmationCode
             minutes: 2
         })
 
-        console.log( generateConfirmationCode)
-        console.log( generateExpirationDate)
-
         const upgradeUserCode = await usersRepository.updateConfirmationCode(foundUserByEmail.id, generateConfirmationCode, generateExpirationDate)
-
-        const html = `
-    <h1>Thank you for registering</h1>
-    <p>To finish registration, please follow the link below:</p>
-    <p><a href='${generateConfirmationCode}'>Complete registration</a></p>
-`;
 
         const html2 = `<h1>Thank you for registration!</h1><p>To finish registration process please follow the link below:<a href="https://somesite.com/confirm-email?code=${generateConfirmationCode}">complete registration</a></p>`
 

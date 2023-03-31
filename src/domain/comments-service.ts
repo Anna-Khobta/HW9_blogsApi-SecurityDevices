@@ -18,7 +18,6 @@ export const commentsService = {
 
     async createComment(postId: string, content: string, userInfo: UserDbType): Promise<CommentViewType> {
 
-        //console.log(userInfo)
         const commentatorInfo = {
             userId: userInfo.id,
             userLogin: userInfo.accountData.login

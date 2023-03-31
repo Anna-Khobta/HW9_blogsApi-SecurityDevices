@@ -55,8 +55,6 @@ export const jwtService = {
 
         const decodedRefreshToken = jwt.decode(refreshToken)
 
-        //console.log(decodedRefreshToken)
-
         const foundRefreshTokenInDb = await tokenRepositories.findToken(decodedRefreshToken)
 
         if (!foundRefreshTokenInDb) {
