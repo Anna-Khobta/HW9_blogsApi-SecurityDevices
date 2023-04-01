@@ -110,10 +110,10 @@ authRouter
 
 
     .post("/registration-email-resending",
+        limitIpMiddleware,
     emailValidationSimple,
     checkUserEmailInbase,
     inputValidationMiddleware,
-    limitIpMiddleware,
     async (req:Request, res: Response) => {
 
         const result = await authService.checkEmail(req.body.email)
