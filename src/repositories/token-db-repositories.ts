@@ -40,10 +40,11 @@ export const tokenRepositories = {
            })
            .toArray()
 
+
        const items: deviceViewType[] = foundAllTokensInDb.map( tokensInfo => ({
            ip: tokensInfo.ip,
            title: tokensInfo.deviceTitle,
-           lastActiveDate: (tokensInfo.iat).toString(),
+           lastActiveDate: new Date(tokensInfo.iat * 1000).toISOString(),
            deviceId: tokensInfo.deviceId
            }))
 

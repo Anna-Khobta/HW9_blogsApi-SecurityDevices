@@ -116,8 +116,44 @@ describe('/', () => {
         }),
 
 
-        it('GET -> "/security/devices": login user 1 time, then get device list; status 200; content: device list;' +
+        it('GET -> "/security/devices": login user 4 times from different browsers;' +
             'used additional methods: POST => /auth/login ', async () => {
+
+            const deleteAll = await request(app)
+                .delete('/testing/all-data')
+                .expect(204)
+
+            const createdUser = await request(app)
+                .post('/users')
+                .set('Authorization', `Basic ${Buffer.from(`${auth.login}:${auth.password}`).toString('base64')}`)
+                .send({
+                    "login": "Anna12",
+                    "password": "Anna12",
+                    "email": "Anna12@mail.com"
+                })
+                .expect(201)
+
+            const loginInSystem1 = await request(app)
+                .post('/auth/login')
+                .send({
+                    "loginOrEmail": "Anna12",
+                    "password": "Anna12"
+                })
+                .set('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36')
+                .expect(200)
+
+            const myCookies1 = loginInSystem1.headers['set-cookie'][0]
+
+            const loginInSystem2 = await request(app)
+                .post('/auth/login')
+                .send({
+                    "loginOrEmail": "Anna12",
+                    "password": "Anna12"
+                })
+                .set('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36')
+                .expect(200)
+
+            const myCookies2 = loginInSystem1.headers['set-cookie'][0]
 
 
 
