@@ -7,7 +7,7 @@ import {devicesService} from "../domain/devices-service";
 export const devicesRouter = Router({})
 
 devicesRouter
-    .get("/devices/",
+    .get("/devices",
         refreshTokenMiddleware,
         async (req:Request, res: Response) => {
 
@@ -15,7 +15,7 @@ devicesRouter
 
             const findDevicesForUser = await tokenRepositories.findAllDevices(refreshToken)
 
-            res.status(200).send(findDevicesForUser)
+            return res.status(200).send(findDevicesForUser)
 
     })
 
@@ -62,7 +62,7 @@ devicesRouter
         if (!isTerminateAllSessionsExcludeCurrent) {
             return res.status(404).send("Something wrong with db")
         } else {
-            res.sendStatus(204)
+            return res.sendStatus(204)
         }
 
 

@@ -9,8 +9,8 @@ export const jwtService = {
     async createJwtToken(id: string) {
 
         const payload = {
+            deviceId: uuidv4(),
             userId: id,
-            deviceId: uuidv4()
         }
 
         const accessToken = jwt.sign({userId: id}, settings.JWT_SECRET, {expiresIn: '10s'})
