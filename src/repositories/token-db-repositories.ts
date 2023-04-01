@@ -68,7 +68,7 @@ export const tokenRepositories = {
 
     async updateToken (decodedRefreshToken: any, ip:string): Promise<boolean> {
 
-        const result = await tokensCollection.updateOne({userId: decodedRefreshToken.payload.userId, deviceId: decodedRefreshToken.payload.deviceId},
+        const result = await tokensCollection.updateOne({userId: decodedRefreshToken.userId, deviceId: decodedRefreshToken.deviceId},
             {$set: {iat: decodedRefreshToken.iat,
                     exp: decodedRefreshToken.exp,
                     ip: ip}})

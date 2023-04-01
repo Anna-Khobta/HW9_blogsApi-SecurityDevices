@@ -90,12 +90,4 @@ export type deviceViewType = {
     deviceId: string
 }
 
-export type decodedRefreshTokenType = {
-    payload: {
-        userId: string,
-        deviceId: string
-    },
-    iat: number,
-    exp: number
-}
 
