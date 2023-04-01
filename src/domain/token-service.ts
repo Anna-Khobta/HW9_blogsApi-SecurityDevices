@@ -9,10 +9,10 @@ export const tokenService= {
             {
                 iat: decodedRefreshToken.iat,
                 exp: decodedRefreshToken.exp,
-                deviceId: decodedRefreshToken.payload.deviceId,
+                deviceId: decodedRefreshToken.deviceId,
                 deviceTitle: deviceTitle,
                 ip: ip,
-                userId: decodedRefreshToken.payload.userId
+                userId: decodedRefreshToken.userId
             }
 
             const checkDeviceInDb = await tokenRepositories.findUserByDeviceId(newRefTokenDb.deviceId)

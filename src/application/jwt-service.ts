@@ -8,13 +8,13 @@ import { v4 as uuidv4 } from 'uuid';
 export const jwtService = {
     async createJwtToken(id: string) {
 
-        const payload = {
+/*
             userId: id,
-            deviceId: uuidv4()
-        }
+            deviceId: uuidv4()*/
+
 
         const accessToken = jwt.sign({userId: id}, settings.JWT_SECRET, {expiresIn: '10s'})
-        const refreshToken = jwt.sign({payload}, settings.JWT_SECRET, {expiresIn: '20s'})
+        const refreshToken = jwt.sign({userId: id, deviceId: uuidv4()}, settings.JWT_SECRET, {expiresIn: '20s'})
 
         const decodedRefreshToken = jwt.decode(refreshToken)
 
@@ -66,13 +66,11 @@ export const jwtService = {
 
     async createNewRefreshToken (userId: string, deviceId: string) {
 
-        const payload = {
-            userId: userId,
-            deviceId: deviceId
-        }
 
-        const newAccessToken = jwt.sign({userId: payload.userId}, settings.JWT_SECRET, {expiresIn: '10s'})
-        const newRefreshToken = jwt.sign({payload}, settings.JWT_SECRET, {expiresIn: '20s'})
+
+        const newAccessToken = jwt.sign({userId: userId}, settings.JWT_SECRET, {expiresIn: '10s'})
+        const newRefreshToken = jwt.sign({userId: userId,
+            deviceId: deviceId}, settings.JWT_SECRET, {expiresIn: '20s'})
         const newDecodedRefreshToken = jwt.decode(newRefreshToken)
 
         const jwtResult = {

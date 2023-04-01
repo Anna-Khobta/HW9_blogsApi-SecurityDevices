@@ -14,7 +14,7 @@ export const tokenRepositories = {
     async findToken(decodedRefreshToken: any): Promise< TokenDBType | null > {
 
         const foundTokenInDb =  await tokensCollection.findOne(
-            {userId: decodedRefreshToken.payload.userId,
+            {userId: decodedRefreshToken.userId,
                 iat: decodedRefreshToken.iat}, {projection: {_id: 0}})
 
         if (!foundTokenInDb) {
