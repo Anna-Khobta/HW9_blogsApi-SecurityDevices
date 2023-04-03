@@ -54,3 +54,45 @@ export async function loginUserGetToken (app: express.Application, auth: {login:
     return tryLogin.body.accessToken
 }
 
+export async function deleteAllCreateUser (app: express.Application, auth: {login: string, password: string}) {
+
+    const deleteAll = await request(app)
+        .delete('/testing/all-data')
+        .expect(204)
+
+    const createdUser = await request(app)
+        .post('/users')
+        .set('Authorization', `Basic ${Buffer.from(`${auth.login}:${auth.password}`).toString('base64')}`)
+        .send({
+            "login": "Anna12",
+            "password": "Anna12",
+            "email": "Anna12@mail.com"
+        })
+        .expect(201)
+
+    return createdUser.body
+}
+
+
+export async function loginInSystem (app: express.Application, auth: {login: string, password: string}): Promise <string>  {
+
+   const login = await request(app)
+        .post('/auth/login')
+        .send({
+            "loginOrEmail": "Anna12",
+            "password": "Anna12"
+        })
+        .expect(200)
+
+    const myCookies = login.headers['set-cookie'][0]
+
+    expect(login.body).toMatchObject({
+        "accessToken": expect.any(String)
+    });
+
+    expect(myCookies).toBeDefined()
+
+    return myCookies
+
+}
+

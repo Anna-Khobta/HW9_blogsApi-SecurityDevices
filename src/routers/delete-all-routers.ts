@@ -4,6 +4,7 @@ import {blogsService} from "../domain/blogs-service";
 import {postsService} from "../domain/posts-service";
 import {usersService} from "../domain/users-service";
 import {commentsService} from "../domain/comments-service";
+import {tokenService} from "../domain/token-service";
 
 export const deleteAllRouter = Router({})
 
@@ -19,10 +20,16 @@ deleteAllRouter.delete('/testing/all-data',
 
         const deleteAllComments = await commentsService.deleteAllComments()
 
+        const deleteAllTokens = await tokenService.deleteAllTokens()
+
         if (deleteAllBlogs) {
             if (deleteAllPosts) {
                 if (deleteAllUsers) {
-                    res.sendStatus(204)
+                    if (deleteAllComments) {
+                        if (deleteAllTokens){
+                            res.sendStatus(204)
+                        }
+                    }
                 }
             }
         } else {

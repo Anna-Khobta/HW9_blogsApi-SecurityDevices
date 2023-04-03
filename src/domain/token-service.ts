@@ -1,5 +1,6 @@
 import {TokenDBType} from "../repositories/types";
 import {tokenRepositories} from "../repositories/token-db-repositories";
+import {commentsRepositories} from "../repositories/comments-db-repositories";
 
 export const tokenService= {
 
@@ -15,7 +16,7 @@ export const tokenService= {
                 userId: decodedRefreshToken.userId
             }
 
-            const checkDeviceInDb = await tokenRepositories.findUserByDeviceId(newRefTokenDb.deviceId)
+        const checkDeviceInDb = await tokenRepositories.findUserByDeviceId(newRefTokenDb.deviceId)
 
         if (!checkDeviceInDb) {
             const addNewTokenToDb = await tokenRepositories.addToken(newRefTokenDb)
@@ -29,12 +30,16 @@ export const tokenService= {
 
     async updateTokenDB(decodedRefreshToken: any, ip: string): Promise<boolean> {
 
-        return await tokenRepositories.updateToken (decodedRefreshToken, ip)
+        return await tokenRepositories.updateToken(decodedRefreshToken, ip)
     },
 
-    async deleteToken (foundTokenInDb: TokenDBType): Promise<boolean> {
+    async deleteToken(foundTokenInDb: TokenDBType): Promise<boolean> {
 
         return await tokenRepositories.deleteToken(foundTokenInDb)
 
+    },
+
+    async deleteAllTokens(): Promise<boolean> {
+        return tokenRepositories.deleteAllTokens()
     }
 }
